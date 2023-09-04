@@ -1,0 +1,101 @@
+<!DOCTYPE HTML>
+<!--
+	Phantom by HTML5 UP
+	html5up.net | @ajlkn
+	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
+-->
+<html>
+	<head>
+		<title>Navigation for a 3 DOF Quadrupedal Robot</title>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+		<link rel="stylesheet" href="assets/css/main.css" />
+		<noscript><link rel="stylesheet" href="assets/css/noscript.css" /></noscript>
+	</head>
+	<body class="is-preload">
+		<!-- Wrapper -->
+			<div id="wrapper">
+
+				<!-- Header -->
+					<header id="header">
+						<div class="inner">
+							<h1><a href="index.html">Home</a></h1>
+							<h1><a href="index.html#two">Work experience</a></h1>
+							<h1><a href="index.html#three">Projects</a></h1>
+							<h1><a href="index.html#four">Contact</a></h1>
+						</div>
+					</header>
+
+				<!-- Main -->
+					<div id="main">
+						<div class="inner">
+							<h1>Navigation for a 3 DOF Quadrupedal Robot</h1>
+							<iframe width="720" height="405" src="https://www.youtube.com/embed/PlXnDiABz0s" title="Spirit Navigation" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+							<h3><br/>Objective</h3>
+							<p>
+								We at Kodlab set out to combine the robust locomotive capabilities of Ghost Robotics' Spirit with a two-layered vision system 
+								that enables smart navigation. The idea was to eventually couple this navigation with dynamic behaviors such as mounting, climbing,
+								and jumping over obstacles to maneuver through a cluttered environment.
+							</p>
+							<p>
+								Our immediate goal was to enable the robot to follow the human in sight around obstacles. My responsibility was 1) to assist in the 
+								C++ software development of this navigation, and 2) to port the ROS1 navigation code to work with the ROS2 Spirit code.
+							</p>
+							
+							<h3>Action</h3>
+							<p>
+								When I joined the project, ROS nodes for each desired behavior had been developed. However, some were not successfully integrated
+								into the system or became corrupted over versions of the software. For instance, Spirit could identify obstacles with the LiDAR sensor
+								and navigate itself, but the camera-based semantic classification system did not work. Sometimes, the system would crash entirely
+								based on core dump or segmentation fault errors.
+							</p>
+							<p>
+								Fixing the errors tested my problem solving ability. I commented out entire nodes, then functions, then code blocks and arrived at the culprit
+								code through process of elimination. 
+							</p>
+							<p>								
+								For why the nodes themselves would not work, I found that RQT Graph was my greatest ally. I tracked	20+ topics through nodes and 
+								matched them with .cpp files and ran through the code. I discovered that the issue was related to launch files	incorrectly	
+								launching the right nodes to enable the behavior. Finally, I integrated the <italic>ros2bridge</italic> into the system to allow 
+								it to work seamlessly with the new Spirit code.
+							</p>
+							
+							<h3>Result</h3>
+							<p>
+								We were able to achieve a functioning navigation system based on the internal walk behavior provided by Ghost Robotics.
+								Spirit could detect humans and move towards them and navigate around obstacles to achieve this goal.
+							</p>
+							
+							<h3>Areas of Improvement</h3>
+							<p>
+								Further tuning was necessary to instruct Spirit the boundaries through which its small body can pass through. As seen in the video above
+								at 1:02, the bounding boxes around the obstacles were set too large and Spirit would not move around them even if it physically could.
+							</p>
+							<p>
+								Finally, we were in a position to integrate in-house dynamic behaviors to this navigation feature. The would allow Spirit to choose
+								the behavior it must execute to maneuver through complex environments, like climbing or jumping over obstacles.
+							</p>
+
+						</div>
+					</div>
+
+				<!-- Footer -->
+					<footer id="footer">
+						<div class="inner">
+							<ul class="copyright">
+								<li>&copy; Sachin Pullil 2023</li><li>Design: <a target="_blank" href="http://html5up.net">HTML5 UP</a></li>
+							</ul>
+						</div>
+					</footer>
+
+			</div>
+
+		<!-- Scripts -->
+			<script src="assets/js/jquery.min.js"></script>
+			<script src="assets/js/browser.min.js"></script>
+			<script src="assets/js/breakpoints.min.js"></script>
+			<script src="assets/js/util.js"></script>
+			<script src="assets/js/main.js"></script>
+
+	</body>
+</html>

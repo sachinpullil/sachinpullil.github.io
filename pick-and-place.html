@@ -1,0 +1,96 @@
+<!DOCTYPE HTML>
+<!--
+	Phantom by HTML5 UP
+	html5up.net | @ajlkn
+	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
+-->
+<html>
+	<head>
+		<title>Pick and Place Planning for a 7 DOF Franka Emika Panda Robotic Arm</title>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+		<link rel="stylesheet" href="assets/css/main.css" />
+		<noscript><link rel="stylesheet" href="assets/css/noscript.css" /></noscript>
+	</head>
+	<body class="is-preload">
+		<!-- Wrapper -->
+			<div id="wrapper">
+
+				<!-- Header -->
+					<header id="header">
+						<div class="inner">
+							<h1><a href="index.html">Home</a></h1>
+							<h1><a href="index.html#two">Work experience</a></h1>
+							<h1><a href="index.html#three">Projects</a></h1>
+							<h1><a href="index.html#four">Contact</a></h1>
+						</div>
+					</header>
+
+				<!-- Main -->
+					<div id="main">
+						<div class="inner">
+							<h1>Pick and Place Planning for a 7 DOF Franka Emika Panda Robotic Arm</h1>
+							<iframe width="720" height="405" src="https://www.youtube.com/embed/Uf49lINy6tc" title="Pick and Place Robot Planning" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+							<h3><br/>Objective</h3>
+							<p>
+								The goal of this project was to build expertise in homogenous transformations, forward and inverse kinematics, and safe
+								planning. We were tasked with programming a robot arm to pick up blocks and stack them with the white side of the block
+								pointing upwards.
+							</p>
+							
+							<h3>Action</h3>
+							<p>
+								Our first step was to build the kinematic model for the robot by computing the transformation matrices between the joints.
+								Next, we realized that the key element in this project was the warm start. If we asked the inverse kinematics solver to
+								get us joint angles for any target end effector pose, it may take a long time or even fail without a good initial guess.
+								Hence, we realized we should solve the inverse kinematics problem for relevant poses beforehand and simply use a lookup
+								table for those poses. Then, for poses nearby, that pose can serve as a warm start to the solver.
+							</p>
+							<p>								
+								Then, we looked at approach strategies. Depending on where the white side of the block faced (up, down, towards robot,
+								away from robot, or to the sides), our approach to the block needed to be different.We built six different strategies to
+								approach and calculated the joint angles for those positions through inverse kinematics.
+							</p>
+							<p>
+								Finally, we had to look at safety. We could not let the end effector collide with the table or any blocks during its work.
+								For this, we ensured that the paths that we took to achieve these motions would always have clearance around blocks
+								and the stacked tower we were building.
+							</p>							
+							
+							<h3>Result</h3>
+							<p>
+								Our robot was able to successfully stack blocks without colliding with any of the blocks or the surrounding environment.
+							</p>							
+							
+							<h3>Areas of Improvement</h3>
+							<p>
+								In a friendly competition between teams, we witnessed our robot stop working because the sensors detected that it was
+								too close to the table and predicted a collision. However, this never occurred in numerous tests in simulation. We realized
+								that we may not have tested the algorithm enough times on the real robot - it's likely that the real robot needed greater
+								clearance between the table, blocks, and the end effector for safety. This was my first encounter with the sim2real gap.
+							</p>
+							
+
+						</div>
+					</div>
+
+				<!-- Footer -->
+					<footer id="footer">
+						<div class="inner">
+							<ul class="copyright">
+								<li>&copy; Sachin Pullil 2023</li><li>Design: <a target="_blank" href="http://html5up.net">HTML5 UP</a></li>
+							</ul>
+						</div>
+					</footer>
+
+			</div>
+
+		<!-- Scripts -->
+			<script src="assets/js/jquery.min.js"></script>
+			<script src="assets/js/browser.min.js"></script>
+			<script src="assets/js/breakpoints.min.js"></script>
+			<script src="assets/js/util.js"></script>
+			<script src="assets/js/main.js"></script>
+
+	</body>
+</html>

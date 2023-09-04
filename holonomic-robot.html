@@ -1,0 +1,102 @@
+<!DOCTYPE HTML>
+<!--
+	Phantom by HTML5 UP
+	html5up.net | @ajlkn
+	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
+-->
+<html>
+	<head>
+		<title>Design and Development of a Semi-autonomous Holonomic Mobile Robot</title>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+		<link rel="stylesheet" href="assets/css/main.css" />
+		<noscript><link rel="stylesheet" href="assets/css/noscript.css" /></noscript>
+	</head>
+	<body class="is-preload">
+		<!-- Wrapper -->
+			<div id="wrapper">
+
+				<!-- Header -->
+					<header id="header">
+						<div class="inner">
+							<h1><a href="index.html">Home</a></h1>
+							<h1><a href="index.html#two">Work experience</a></h1>
+							<h1><a href="index.html#three">Projects</a></h1>
+							<h1><a href="index.html#four">Contact</a></h1>
+						</div>
+					</header>
+
+				<!-- Main -->
+					<div id="main">
+						<div class="inner">
+							<h1>Design and Development of a Semi-autonomous Holonomic Mobile Robot</h1>
+							<iframe width="720" height="405" src="https://www.youtube.com/embed/tO8GMADmhhk" title="Holonomic robot wall following" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+							<h3><br/>Objective</h3>
+							<p>
+								In this project, our goal was to integrate multiple sensors, microprocessors, and devices to create a semi-autonomous system. 
+								We chose to build a holonomic mobile robot that could perform wall-following, IR beacon detection, and HTC Vive-based location tracking.
+							</p>
+							
+							<h3>Action</h3>
+							<p>
+								Broadly, we divided this project into three parts: mechanical design and assembly, electrical design and implementation, and software
+								development. For the mechanical design, we chose mecanum wheels to support the compact, square chassis. The body was 3D printed with
+								acrylic with a black base and a transparent top to enable visualization of the whole system. We also added claws to grab on to
+								detected IR beacons and move them around.
+							</p>
+							<p>
+								For the electrical design, we chose the ESP32 family of microcontrollers for their excellent functionality within their compact size.
+								We had a high-level ESP32S2 act as the main controller, two low-level ESP32C3 controllers for motor control and HTC Vive interfacing,
+								plus an ATMega32U4 for simple servo motor control on the claws and IR beacon detection.
+							</p>
+							<p>
+								Regarding software development, we had an HTML page to interact with the robot. We could control its motions directly (move forward,
+								spin-in-place, etc.), or select a desired behavior for it to execute. wall-following was the simplest to execute: we continued to move
+								forward until our sensors detected an obstacle, at which point we would turn 75 degrees counter-clockwise and repeat. For beacon tracking,
+								we took a step forward, rotated half a circle left, then half a circle right, then back to the center of the line. If the robot detected the
+								beacon within these steps, it would proceed towards the beacon. If not, it would repeat this until it found a beacon or timed out. Finally,
+								the HTC	Vive circuit would give us the local position of the robot and, given another position the robot should relocate to, we simply 
+								calculated the angle and distance and drove the robot in  that direction.
+							</p>
+													
+							
+							<h3>Result</h3>
+							<p>
+								Our robot was successfully able to demonstrate three autonomous behaviors: wall-following, IR beacon detection, and HTC Vive-based location
+								tracking. It was not fully autonomous however because the user needed to select the desired behavior based on an HTML page. Once selected,
+								the robot would execute the logic to perform the behavior until it was commanded to stop.
+							</p>
+
+							<h3>Areas of Improvement</h3>
+							<p>
+								Our main area of improvement was with the HTC Vive logic. We observed that if the microprocessor responsible for localizing the robot were
+								to perform any other actions, the timing of the detection circuit would be disturbed and hence give us strange values for location. This
+								meant that we had to localize, then stop the process, and execute whatever action was needed, and then stop that and localize once again.
+								This could be improved by separating the Vive circuit from the rest of the electronic components and sending location intermittently
+								to the main microprocessor.
+							</p>
+							
+							
+						</div>
+					</div>
+
+				<!-- Footer -->
+					<footer id="footer">
+						<div class="inner">
+							<ul class="copyright">
+								<li>&copy; Sachin Pullil 2023</li><li>Design: <a target="_blank" href="http://html5up.net">HTML5 UP</a></li>
+							</ul>
+						</div>
+					</footer>
+
+			</div>
+
+		<!-- Scripts -->
+			<script src="assets/js/jquery.min.js"></script>
+			<script src="assets/js/browser.min.js"></script>
+			<script src="assets/js/breakpoints.min.js"></script>
+			<script src="assets/js/util.js"></script>
+			<script src="assets/js/main.js"></script>
+
+	</body>
+</html>

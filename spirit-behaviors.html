@@ -1,0 +1,91 @@
+<!DOCTYPE HTML>
+<!--
+	Phantom by HTML5 UP
+	html5up.net | @ajlkn
+	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
+-->
+<html>
+	<head>
+		<title>Legged Behavior Design for a Quadrupedal Robot</title>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+		<link rel="stylesheet" href="assets/css/main.css" />
+		<noscript><link rel="stylesheet" href="assets/css/noscript.css" /></noscript>
+	</head>
+	<body class="is-preload">
+		<!-- Wrapper -->
+			<div id="wrapper">
+
+				<!-- Header -->
+					<header id="header">
+						<div class="inner">
+							<h1><a href="index.html">Home</a></h1>
+							<h1><a href="index.html#two">Work experience</a></h1>
+							<h1><a href="index.html#three">Projects</a></h1>
+							<h1><a href="index.html#four">Contact</a></h1>
+						</div>
+					</header>
+
+				<!-- Main -->
+					<div id="main">
+						<div class="inner">
+							<h1>Legged Behavior Design for a Quadrupedal Robot</h1>
+							<iframe width="720" height="405" src="https://www.youtube.com/embed/woVlrw3HygA" title="Spirit Push Walk" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+							<h3><br/>Objective</h3>
+							<p>At Kodlab, we were deeply interested in <i>mobimanipulation</i> - the idea of using only the limbs
+								of the robot to manipulate its environment. Kodlab PhD alumni V. Vasilopoulos
+								and T. Topping were able to achieve this on Ghost Robotics' Minitaur (as shown in <a href="https://www.youtube.com/v/pOTcxosbOe0?start=105" target="_blank"> this</a> video around 1:45).</p>
+							<p>My objective was to achieve similar, purely feed-forward mobimanipulation on Ghost Robotics' Spirit. This new quadruped
+								has 3 degrees of freedom in each leg, which enable it to perform dynamic movements that more closely align with 
+								quadrupeds in nature. Specifically, I set out to adapt the <b>Mount</b> behavior to jump on the cart and the <b>Push Walk</b> behavior to move the cart around.
+							</p>
+							<h3>Action</h3>
+							<p>
+								The mount behavior designed by Timothy Greco, a PhD student at Kodlab, worked well in simulation. However, the push walk behavior needed work.
+								The core issues were improper initial grip on the cart, unintended yaw while pushing the cart forward, and unstable center of mass (COM) of the robot while push walking.
+							</p>
+							<p>
+								To fix the grip issue, I tuned the mount parameters so that before we begin push walk, the rubber feet of the robot land on the cart, instead of the metallic shins.
+								The yaw issue was related to the unstable COM while walking. For this, I calculated the stable area where the COM should be while the robot is
+								on three legs as it takes a step. I discovered the COM would be outside this stable area and therefore cause the robot to roll every time it took a step.
+								To fix this, I moved the rear legs outward and backwards during the step to create a wider stable area. This created a stable behavior in simulation.
+							</p>
+							<p>
+								Further issues were discovered when moving from simulation to real robot testing. I had to tune and discover a different set of gains which would stabilize the
+								mount and push walk behavior on the real robot. I also had to tune step lengths further to improve the stability of the walk.
+							</p>
+							<h3>Result</h3>
+							<p>
+								The mount behavior successfully allowed Spirit to jump on the cart landing feet first, thus allowing a strong grip to push the cart. The push walk behavior successfully
+								allowed Spirit to push the cart forward, however further investigation is needed into improving its stability.
+							</p>
+							<h3>Areas of Improvement</h3>
+							<p>
+								As the robot pushes the cart forward, there is a counter-clockwise arc in the cart's trajectory. This could be improved by further investigating the roll in the push walk behavior, 
+								which increases the likelihood of uneven steps and therefore results in yawing of the cart. We could also add a feedback system using cameras or the robot's own IMU to correct for
+								the yaw and have the robot push the cart in the opposite direction.
+								
+							</p>
+						</div>
+					</div>
+
+				<!-- Footer -->
+					<footer id="footer">
+						<div class="inner">
+							<ul class="copyright">
+								<li>&copy; Sachin Pullil 2023</li><li>Design: <a target="_blank" href="http://html5up.net">HTML5 UP</a></li>
+							</ul>
+						</div>
+					</footer>
+
+			</div>
+
+		<!-- Scripts -->
+			<script src="assets/js/jquery.min.js"></script>
+			<script src="assets/js/browser.min.js"></script>
+			<script src="assets/js/breakpoints.min.js"></script>
+			<script src="assets/js/util.js"></script>
+			<script src="assets/js/main.js"></script>
+
+	</body>
+</html>

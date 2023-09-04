@@ -1,0 +1,103 @@
+<!DOCTYPE HTML>
+<!--
+	Phantom by HTML5 UP
+	html5up.net | @ajlkn
+	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
+-->
+<html>
+	<head>
+		<title>Policy Gradient Reinforcement Learning using a JAX Neural Network</title>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+		<link rel="stylesheet" href="assets/css/main.css" />
+		<noscript><link rel="stylesheet" href="assets/css/noscript.css" /></noscript>
+	</head>
+	<body class="is-preload">
+		<!-- Wrapper -->
+			<div id="wrapper">
+
+				<!-- Header -->
+					<header id="header">
+						<div class="inner">
+							<h1><a href="index.html">Home</a></h1>
+							<h1><a href="index.html#two">Work experience</a></h1>
+							<h1><a href="index.html#three">Projects</a></h1>
+							<h1><a href="index.html#four">Contact</a></h1>
+						</div>
+					</header>
+
+				<!-- Main -->
+					<div id="main">
+						<div class="inner">
+							<h1>Policy Gradient Reinforcement Learning using a JAX Neural Network</h1>
+							<a class="image fit"><img src="images/fulls/proj4.jpg" alt="" /></a>
+							<h3><br/>Objective</h3>
+							<p>
+								This was my first attempt at reinforcement learning. My goal was to implement a reinforcement learning algorithm
+								that could learn the best way to control a robot arm and slide a puck to a goal position. Specifically, I wanted to
+								use the JAX library to achieve this. 
+							</p>
+							<p>
+								JAX allows for faster execution of machine learning algorithms through its use of the Accelerated Linear Algebra (XLA)
+								compiler, automatic differentiation, parallelization and just-in-time (JIT) compilation.
+							</p>						
+							
+							<h3>Action</h3>
+							<p>
+								First, I set up the interface to the (now archived) Open AI Gym FetchSlide environment. Through this, I could simulate
+								the environment based on actions my algorithm would take and then receive results depending on the quality of the action.
+							</p>
+							<p>
+								For the policy itself, I used JAX to create a fully connected neural network and applied updates on the network based
+								on JAX style automatic differentiation and parallelization.
+							</p>
+							<p>
+								Finally, I set up the policy gradient algorithm. I simulated a batch of trajectories, collected their rewards, found the 
+								best trajectories, estimated the policy gradient based on results from these trajectories, and then updated the policy
+								using the Adam optimizer.
+							</p>						
+							
+							<h3>Result</h3>
+							<p>
+								After 400 training iterations of 100 trajectories per training batch, the success rate improved from 2% to 5%. Overall,
+								this success rate is very low, but shows that the policy gradient was successful in learning to achieve its goal. With 
+								growing iterations, its success rate was shown to increase.
+							</p>						
+							
+							<h3>Areas of Improvement</h3>
+							<p>
+								When training and calculating the best trajectories, I kept a running batch of the best trajectories called elite trajectories.
+								When this batch grew over 100, I eliminated the first 20 with the reasoning that earlier trajectories are likely worse than
+								newer ones. However, due to the noise in the model, it's likely that older trajectories could have been better. Hence, it would
+								have been smarter to sort the trajectories in the elite batch and delete the least performing ones across iterations.
+							</p>
+							<p>
+								Vanilla policy gradient is well known to be limited in capability, but exists to show that reinforcement learning algorithms
+								can be successful given enough time and resources. A more robust algorithm like PPO or TRPO could likely achieve better
+								results with the same number of training iterations.
+							</p>
+							
+
+						</div>
+					</div>
+
+				<!-- Footer -->
+					<footer id="footer">
+						<div class="inner">
+							<ul class="copyright">
+								<li>&copy; Sachin Pullil 2023</li><li>Design: <a target="_blank" href="http://html5up.net">HTML5 UP</a></li>
+							</ul>
+						</div>
+					</footer>
+
+			</div>
+
+		<!-- Scripts -->
+			<script src="assets/js/jquery.min.js"></script>
+			<script src="assets/js/browser.min.js"></script>
+			<script src="assets/js/breakpoints.min.js"></script>
+			<script src="assets/js/util.js"></script>
+			<script src="assets/js/main.js"></script>
+
+	</body>
+</html>

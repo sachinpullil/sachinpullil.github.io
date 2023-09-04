@@ -1,0 +1,101 @@
+<!DOCTYPE HTML>
+<!--
+	Phantom by HTML5 UP
+	html5up.net | @ajlkn
+	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
+-->
+<html>
+	<head>
+		<title>Safe MPC Blocking Strategy in F1/10 Autonomous Racing</title>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+		<link rel="stylesheet" href="assets/css/main.css" />
+		<noscript><link rel="stylesheet" href="assets/css/noscript.css" /></noscript>
+	</head>
+	<body class="is-preload">
+		<!-- Wrapper -->
+			<div id="wrapper">
+
+				<!-- Header -->
+					<header id="header">
+						<div class="inner">
+							<h1><a href="index.html">Home</a></h1>
+							<h1><a href="index.html#two">Work experience</a></h1>
+							<h1><a href="index.html#three">Projects</a></h1>
+							<h1><a href="index.html#four">Contact</a></h1>
+						</div>
+					</header>
+
+				<!-- Main -->
+					<div id="main">
+						<div class="inner">
+							<h1>Lightning MPCQueen: Safe MPC Blocking Strategy in F1/10 Autonomous Racing</h1>
+							<iframe width="720" height="405" src="https://www.youtube.com/embed/fyDCQbGbruM" title="Blocking MPC" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+							<iframe width="720" height="405" src="https://www.youtube.com/embed/uqto1_19V-A" title="Blocking MPC on Real Car" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+							<h3><br/>Objective</h3>
+							<p>
+								Blocking is a strategy used in f1/10 autonomous racing wherein the lead car (AKA the blocking car) adjusts its position along the
+								track depending on the position of the car behind it (AKA the overtaking car). When effectively executed, this allows the blocking
+								car to maintain the lead. The key advantage to blocking is that it can be used even with a <italic>speed handicap</italic> - the 
+								blocking car can be	slower than the overtaking car and still hold the lead position.
+							</p>
+							<p>
+								Our objective was to implement the blocking strategy using model predictive control and leverage its flexibility to integrate safety
+								considerations within the optimization problem.
+							</p>
+							
+							<h3>Action</h3>
+							<p>
+								We first assumed knowledge of the position of the overtaking car (easy to do in ROS). Then, we projected its trajectory along the 
+								track for the next 5 seconds. Based on this projection, we generated a trajectory for our blocking car to follow. Then, we applied
+								model predictive control based on the dynamics of the vehicle to follow this trajectory. We repeated these steps at a frequency of 10Hz.
+							</p>
+
+							<p>
+								For safety considerations, we applied a cost on the change in steering angle between timesteps. This was to prevent the blocking car from
+								taking wild turns which may cause collision or toppling of the vehicle.
+							</p>						
+							
+							<h3>Result</h3>
+
+							<p>
+								We showed that our blocking strategy successfully allowed the lead car to defend its position when its speed was up to <b>5.4x slower</b> than
+								the overtaking car. This was because the overtaking car could not react fast enough to the defensive steering of the lead vehicle. This
+								proves that blocking using MPC can be a viable strategy for f1/10th autonomous racing.
+							</p>
+							
+							<h3>Areas of Improvement</h3>
+							<p>
+								Unfortunately, the convex optimization solver could not always provide a solution even if one clearly existed. This led to intermittent
+								stops of the vehicle while executing the blocking strategy. There needed to be backup measures for when the MPC solver returned no
+								solution.
+							</p>
+							<p>
+								Also, while in simulation it was simple to communicate position of the overtaking car to the blocking car, in real car testing, this
+								information could not be stably communicated. The car-to-car communication system also needs improvement to test this strategy at
+								high speeds.
+							</p>
+							
+						</div>
+					</div>
+
+				<!-- Footer -->
+					<footer id="footer">
+						<div class="inner">
+							<ul class="copyright">
+								<li>&copy; Sachin Pullil 2023</li><li>Design: <a target="_blank" href="http://html5up.net">HTML5 UP</a></li>
+							</ul>
+						</div>
+					</footer>
+
+			</div>
+
+		<!-- Scripts -->
+			<script src="assets/js/jquery.min.js"></script>
+			<script src="assets/js/browser.min.js"></script>
+			<script src="assets/js/breakpoints.min.js"></script>
+			<script src="assets/js/util.js"></script>
+			<script src="assets/js/main.js"></script>
+
+	</body>
+</html>
